@@ -11,3 +11,10 @@ class Dog:
     def bark(self):
         print("Woof!")
 
+    def sit(self):
+        print(f"{self.name} sits")
+    
+    def roll(self):
+        print(f"{self.name} rolls")
+
+
