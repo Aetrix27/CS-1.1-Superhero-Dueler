@@ -1,6 +1,7 @@
 import random 
 from ability import Ability
 from armor import Armor
+from weapon import Weapon
 
 class Hero:
     # We want our hero to have a default "starting_health",
@@ -116,6 +117,14 @@ class Hero:
       # if it is <= 0, then return False. Otherwise, they still have health
       # and are therefore alive, so return True
 
+    def add_weapon(self, weapon):
+      '''Add weapon to self.abilities'''
+      # TODO: This method will append the weapon object passed in as an
+      # argument to self.abilities.
+      self.abilities.append(weapon)
+      # This means that self.abilities will be a list of
+      # abilities and weapons.
+
 
 if __name__ == "__main__":
 
@@ -130,3 +139,8 @@ if __name__ == "__main__":
   hero2.add_ability(ability3)
   hero2.add_ability(ability4)
   hero1.fight(hero2)
+
+  hero = Hero("Wonder Woman")
+  weapon = Weapon("Lasso of Truth", 90)
+  hero.add_weapon(weapon)
+  print(hero.attack())

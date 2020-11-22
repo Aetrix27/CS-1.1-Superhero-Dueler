@@ -1,20 +1,19 @@
-# dog.py
-class Dog:
-    # Required properties are defined inside the __init__ constructor method
-    def __init__(self, name, breed):
+class Animal:
+    def __init__(self, name, sleep_duration):
         self.name = name
-        self.breed = breed
-        print("dog initialized!")
+        self.sleep_duration = sleep_duration
 
-    # Methods are defined as their own named functions inside the class
-    # Remember to put the "self" parameter every time we make a class method!
+    def sleep(self):
+        print(
+            "{} sleeps for {} hours".format(
+                self.name,
+                self.sleep_duration))
+
+# Note that the class Dog takes in Animal as a parameter!
+class Dog(Animal):
     def bark(self):
-        print("Woof!")
+        print("Woof! Woof!")
 
-    def sit(self):
-        print(f"{self.name} sits")
-    
-    def roll(self):
-        print(f"{self.name} rolls")
-
-
+my_dog = Dog("Sophie", 12)
+my_dog.sleep()
+my_dog.bark()
