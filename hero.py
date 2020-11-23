@@ -20,6 +20,8 @@ class Hero:
         
         # we know the name of our hero, so we assign it here
         self.name = name
+        self.deaths = 0
+        self.kills = 0
         # similarly, our starting health is passed in, just like name
         self.starting_health = starting_health
         # when a hero is created, their current health is
@@ -39,17 +41,19 @@ class Hero:
           opponent.take_damage(self.attack())
           print(opponent.current_health)
 
-          if self.is_alive() == False:
-            print(f"{opponent.name} won!")
-          elif opponent.is_alive() == False:
-            print(f"{self.name} won!")
-
           self.take_damage(opponent.attack())
 
           if self.is_alive() == False:
             print(f"{opponent.name} won!")
+            opponent.kills += 1
+            self.deaths += 1
+            #return f"{opponent.name} won!"
+
           elif opponent.is_alive() == False:
             print(f"{self.name} won!")
+            self.kills += 1
+            opponent.deaths += 1
+            #return f"{self.name} won!"
 
       # 1) else, start the fighting loop until a hero has won
       # 2) the hero (self) and their opponent must attack each other and each must take damage from the other's attack
@@ -125,7 +129,17 @@ class Hero:
       # This means that self.abilities will be a list of
       # abilities and weapons.
 
+    def add_kill(self, num_kills):
+      ''' Update self.kills by num_kills amount'''
+      self.kills += num_kills
+    
+    def add_death(self, num_deaths):
+      ''' Update deaths with num_deaths'''
+      # TODO: This method should add the number of deaths to self.deaths
+      self.deaths += num_deaths
 
+ 
+      
 if __name__ == "__main__":
 
   hero1 = Hero("Wonder Woman")
