@@ -26,14 +26,11 @@ class Team:
 
     def view_all_heroes(self):
         '''Prints out all heroes to the console.'''
-        # TODO: Loop over the list of heroes and print their names to the terminal one by one.
         for hero in self.heroes:
             print(hero.name)
 
     def add_hero(self, hero):
         '''Add Hero object to self.heroes.'''
-        # TODO: Add the Hero object that is passed in to the list of heroes in
-        # self.heroes
         self.heroes.append(hero)
 
     def revive_heroes(self, health=100):
@@ -60,20 +57,15 @@ class Team:
             living_opponents.append(hero)
 
         while len(living_heroes) > 0 and len(living_opponents)> 0:
-            # TODO: Complete the following steps:
-            # 1) Randomly select a living hero from each team (hint: look up what random.choice does)
             self_choice = random.choice(self.heroes)
             opponent_choice = random.choice(other_team.heroes)
 
-            # 2) have the heroes fight each other (Hint: Use the fight method in the Hero class.)
-            self_choice.fight()
-            opponent_choice.fight()
+            self_choice.fight(opponent_choice)
+            opponent_choice.fight(self_choice)
         
-            # 3) update the list of living_heroes and living_opponents
-            # to reflect the result of the fight
             if self_choice.is_alive():
-                self.heroes.append(self_choice)
+                living_heroes.append(self_choice)
             elif opponent_choice.is_alive():
-                other_team.heroes.append(opponent_choice)
+                living_opponents.append(opponent_choice)
 
 
