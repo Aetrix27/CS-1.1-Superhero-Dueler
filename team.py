@@ -1,4 +1,5 @@
-import random 
+import random
+from hero import Hero
 
 class Team:
     def __init__(self, name):
@@ -6,7 +7,7 @@ class Team:
         '''
         self.name = name
         self.heroes = list()
-    
+
     def remove_hero(self, name):
         '''Remove hero from heroes list.
         If Hero isn't found return 0.
@@ -27,22 +28,22 @@ class Team:
     def view_all_heroes(self):
         '''Prints out all heroes to the console.'''
         for hero in self.heroes:
-            print(hero.name)
+            print(hero)
 
     def add_hero(self, hero):
         '''Add Hero object to self.heroes.'''
         self.heroes.append(hero)
 
-    def revive_heroes(self, health=100):
-      ''' Reset all heroes health to starting_health'''
-      for hero in self.heroes:
-        hero.current_health = hero.starting_health
-
     def stats(self):
-      '''Print team statistics'''
-      for hero in self.heroes:
-          kd = hero.kills / hero.deaths
-          print("{} Kill/Deaths:{}".format(hero.name,kd))
+        '''Print team statistics'''
+        for hero in self.heroes:
+            kd = hero.kills / hero.deaths
+            print("{} Kill/Deaths:{}".format(hero.name,kd))
+
+    def revive_heroes(self, health=100):
+        ''' Reset all heroes health to starting_health'''
+        for hero in self.heroes:
+            hero.current_health = hero.starting_health
 
     def attack(self, other_team):
         ''' Battle each team against each other.'''
@@ -57,15 +58,13 @@ class Team:
             living_opponents.append(hero)
 
         while len(living_heroes) > 0 and len(living_opponents)> 0:
-            self_choice = random.choice(self.heroes)
-            opponent_choice = random.choice(other_team.heroes)
 
-            self_choice.fight(opponent_choice)
-            opponent_choice.fight(self_choice)
-        
-            if self_choice.is_alive():
-                living_heroes.append(self_choice)
-            elif opponent_choice.is_alive():
-                living_opponents.append(opponent_choice)
+            hero = random.choice(living_heroes)
+            opponent = random.choice(living_opponents)
 
+            hero.fight(opponent)
 
+            if hero.is_alive():
+                living_opponents.remove(opponent)
+            else:
+                living_heroes.remove(hero)

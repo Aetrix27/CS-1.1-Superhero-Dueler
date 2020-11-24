@@ -25,30 +25,30 @@ class Hero:
     def fight(self, opponent):  
       ''' Current Hero will take turns fighting the opponent hero passed in.
       '''
-      if self.abilities is not list() and opponent.abilities is not list():
-        while self.is_alive() and opponent.is_alive():
-            self.take_damage(opponent.attack())
-            opponent.take_damage(self.attack())
-        if not self.is_alive() and not opponent.is_alive():
-            print("Draw!")
-        elif self.is_alive():
-            print(self.name,"Wins!")
-            self.add_kill(1)
-            opponent.add_death(1)
-            return 1
-        else: 
-            print (opponent.name,"Wins!")
-            opponent.add_kill(1)
-            self.add_death(1)
-            return 2
+      if not self.abilities or not opponent.abilities:
+          print("Draw")
       else:
-        print("Draw!")
-        return 3
+          while True:
+              opponent.take_damage(self.attack())
+              if opponent.is_alive():
+                  None
+              else:
+                  print(f"{self.name} won!")
+                  self.add_kill(1)
+                  opponent.add_death(1)
+                  break
+
+              self.take_damage(opponent.attack())
+              if self.is_alive():
+                  None
+              else:
+                  print(f"{opponent.name} won!")
+                  self.add_death(1)
+                  opponent.add_kill(1)
+                  break
 
     def add_ability(self, ability):
       ''' Add ability to abilities list '''
-
-      # We use the append method to add ability objects to our list.
       self.abilities.append(ability)
 
     def attack(self):
@@ -84,7 +84,8 @@ class Hero:
     def take_damage(self, damage):
       '''Updates self.current_health to reflect the damage minus the defense.
       '''
-      self.current_health = self.current_health - damage
+      damage_dealt = damage - self.defend()
+      self.current_health = self.current_health - damage_dealt
 
       return self.current_health
  
